@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aceita um Date Comigo?</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:20;height:78px;display:flex;align-items:center;gap:34px;padding:0 28px;background:linear-gradient(to bottom,rgba(0,0,0,.88),rgba(0,0,0,.05))}
+    .logo{font-size:38px;font-weight:900;color:#e50914;letter-spacing:-2px}
+    .nav{display:flex;gap:28px;font-size:16px;color:#eee}
+    .nav span{white-space:nowrap}
+    .icons{margin-left:auto;display:flex;align-items:center;gap:18px;font-size:24px}
+    .profile{width:36px;height:36px;border-radius:5px;object-fit:cover}
+    .hero{min-height:92vh;position:relative;display:flex;align-items:center;padding:110px 26px 40px;background-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.86) 23%,rgba(0,0,0,.44) 52%,rgba(0,0,0,.1) 100%),linear-gradient(0deg,#000 0%,rgba(0,0,0,0) 30%),url('foto-principal.jpg');background-size:cover;background-position:center right}
+    .hero-content{max-width:585px;position:relative;z-index:3}
+    .nfilme{display:flex;align-items:center;gap:12px;color:#ddd;letter-spacing:10px;font-weight:700;margin-bottom:10px}
+    .nfilme b{font-size:42px;color:#e50914;letter-spacing:-2px}
+    .title{line-height:.9;margin-bottom:18px;text-transform:uppercase;text-shadow:0 5px 20px rgba(0,0,0,.7)}
+    .title .small{display:block;font-size:clamp(45px,7vw,84px);font-weight:900;color:#f2f2f2}
+    .title .date{display:block;font-size:clamp(72px,12vw,135px);font-weight:900;color:#e91e63;letter-spacing:-5px}
+    .title .script{display:block;text-transform:none;font-family:'Brush Script MT','Segoe Script',cursive;font-size:clamp(50px,7vw,88px);font-weight:400;color:#fff;margin-top:-8px}
+    .rank{font-size:24px;font-weight:900;margin:14px 0}
+    .meta{display:flex;align-items:center;gap:14px;font-size:18px;margin-bottom:16px;color:#eee;flex-wrap:wrap}
+    .star,.pink{color:#ff1b6b}.age{background:#555;padding:3px 7px;border-radius:4px;font-size:15px}
+    .sinopse{font-size:18px;line-height:1.35;max-width:520px;color:#f2f2f2;margin-bottom:22px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    button,a.btn{border:none;border-radius:5px;padding:15px 27px;font-size:20px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:.25s}
+    .play{background:#fff;color:#000}.play:hover{transform:scale(1.04)}
+    .list{background:rgba(109,109,110,.55);color:#fff}.list:hover{background:rgba(109,109,110,.75)}
+    .signature{position:absolute;right:7%;bottom:90px;text-align:center;font-family:'Brush Script MT','Segoe Script',cursive;font-size:clamp(42px,6vw,76px);z-index:3;text-shadow:0 5px 20px #000}.signature p{font-family:Arial,sans-serif;font-size:17px;letter-spacing:1px;text-transform:uppercase;margin-top:12px}.signature .pink{font-family:Arial,sans-serif;font-weight:900}
+    .section{padding:28px 26px;border-top:1px solid rgba(255,255,255,.18)}
+    h2{color:#ff1b6b;margin-bottom:20px;text-transform:uppercase;font-size:25px}
+    .details{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+    .info p{font-size:18px;margin:14px 0;line-height:1.35}.info b{color:#fff}.ico{color:#ff1b6b;margin-right:8px}
+    .motivos{border:1px solid #ff1b6b;border-radius:9px;padding:20px;background:rgba(0,0,0,.45)}
+    .motivos h3{color:#ff1b6b;margin-bottom:12px;text-transform:uppercase}.motivos li{list-style:none;margin:10px 0;font-size:17px;line-height:1.25}.motivos li:before{content:'✓';color:#ff1b6b;font-weight:900;margin-right:10px}
+    .side-img{width:100%;height:280px;object-fit:cover;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card{height:280px;border-radius:6px;overflow:hidden;background:#111;transition:.25s}.card:hover{transform:scale(1.04);z-index:2}.card img{width:100%;height:100%;object-fit:cover}.red-line{height:8px;background:#e50914;border-radius:20px;margin-top:14px}
+    .final{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;padding:40px 26px 55px}.final-title{font-family:'Brush Script MT','Segoe Script',cursive;font-size:58px}.final-title b{display:block;font-family:Arial,sans-serif;text-transform:uppercase;font-size:62px;line-height:.95}.final-title .date-word{color:#ff1b6b}.episode{border:1px solid #ff1b6b;padding:22px;text-align:center;max-width:420px;margin:auto}.episode h3{color:#ff1b6b;text-transform:uppercase;margin-bottom:12px}.episode strong{font-size:36px}.accept-row{margin-top:24px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap}.accept{background:linear-gradient(90deg,#ff2d72,#ff5b96);color:#fff}.accept2{background:#000;color:#fff;border:1px solid #ff1b6b}#msg{display:none;margin-top:18px;color:#ff7ab6;font-size:24px;font-weight:800;text-align:center}.music-note{font-size:14px;color:#ccc;margin-top:12px}
+    @media(max-width:850px){.nav{display:none}.logo{font-size:31px}.topbar{padding:0 18px}.hero{background-position:center;align-items:flex-end;padding:105px 20px 35px}.signature{position:relative;right:auto;bottom:auto;margin-top:35px;font-size:48px}.details,.detail-grid,.final{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.card{height:210px}.side-img{height:230px}.rank{font-size:20px}.sinopse{font-size:16px}.final-title b{font-size:42px}.episode strong{font-size:30px}}
+  </style>
+</head>
+<body>
+  <audio id="musica" loop preload="auto"><source src="musica.mp3" type="audio/mpeg"></audio>
+
+  <header class="topbar">
+    <div class="logo">NETFLIX</div>
+    <nav class="nav"><span>Início</span><span>Séries</span><span>Filmes</span><span>Bombando</span><span>Minha lista</span></nav>
+    <div class="icons"><span>⌕</span><span>🔔</span><img class="profile" src="foto-principal.jpg" alt="Perfil"></div>
+  </header>
+
+  <main class="hero">
+    <div class="hero-content">
+      <div class="nfilme"><b>N</b> FILME</div>
+      <h1 class="title"><span class="small">Aceita um</span><span class="date">Date</span><span class="script">Comigo? ♡</span></h1>
+      <div class="rank">TOP 1 EM ROMANCE NO BRASIL</div>
+      <div class="meta"><span class="star">★</span><span>9.9/10</span><span>|</span><span>2026</span><span>|</span><span class="pink">❤</span><span>Romance</span><span class="age">13+</span></div>
+      <p class="sinopse">Depois de muitas conversas, risadas e momentos que fizeram o tempo passar mais rápido, dois protagonistas perceberam que algumas histórias simplesmente merecem continuar. Agora chegou o momento de descobrir se este será apenas mais um capítulo... ou o início de uma história inesquecível.</p>
+      <div class="actions">
+        <button class="play" onclick="tocarMusica()">▶ ASSISTIR</button>
+        <button class="list" onclick="tocarMusica()">＋ MINHA LISTA</button>
+      </div>
+      <p class="music-note">Clique em assistir para começar a música.</p>
+    </div>
+    <div class="signature">João & Nicoly ♡<p>Uma história que merece<br>mais um <span class="pink">episódio</span></p></div>
+  </main>
+
+  <section class="section">
+    <h2>Detalhes</h2>
+    <div class="details">
+      <div class="detail-grid">
+        <div class="info">
+          <p><span class="ico">⏱</span><b>GÊNERO:</b> Romance, Comédia Romântica</p>
+          <p><span class="ico">◷</span><b>DURAÇÃO:</b> O tempo necessário para criar boas memórias</p>
+          <p><span class="ico">▣</span><b>LANÇAMENTO:</b> 30 de Junho</p>
+          <p><span class="ico">📍</span><b>LOCAL:</b> Surpresa</p>
+        </div>
+        <div class="motivos">
+          <h3>Motivos para assistir</h3>
+          <ul><li>Muitas risadas</li><li>Conversas sem fim</li><li>Boa companhia</li><li>Momentos inesquecíveis</li><li>Possibilidade de virar a melhor temporada de todas</li></ul>
+        </div>
+      </div>
+      <img class="side-img" src="foto-principal.jpg" alt="João e Nicoly">
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Momentos Favoritos</h2>
+    <div class="gallery">
+      <div class="card"><img src="foto1.webp" alt="Momento favorito 1"></div>
+      <div class="card"><img src="foto2.jpg" alt="Momento favorito 2"></div>
+      <div class="card"><img src="foto3.jfif" alt="Momento favorito 3"></div>
+      <div class="card"><img src="foto4.jpg" alt="Momento favorito 4"></div>
+    </div>
+    <div class="red-line"></div>
+  </section>
+
+  <section class="final">
+    <div class="final-title">Nicoly,<b>Aceita um <span class="date-word">Date</span></b>comigo? ♡</div>
+    <div>
+      <div class="episode"><h3>Data do nosso episódio</h3><strong>🗓 30 DE JUNHO</strong></div>
+      <div class="accept-row"><button class="accept" onclick="aceitou()">❤ ACEITO!</button><button class="accept2" onclick="aceitou()">♡ CLARO QUE ACEITO!</button></div>
+      <div id="msg">Você desbloqueou a próxima temporada! ❤️</div>
+    </div>
+  </section>
+
+  <script>
+    const musica = document.getElementById('musica');
+    function tocarMusica(){ musica.play().catch(()=>{}); }
+    function aceitou(){
+      tocarMusica();
+      document.getElementById('msg').style.display='block';
+      setTimeout(()=>{ window.open('https://wa.me/5561998756936?text=Jo%C3%A3o%2C%20eu%20aceito%20o%20date!%20%E2%9D%A4%EF%B8%8F','_blank'); },900);
+    }
+  </script>
+</body>
+</html>
